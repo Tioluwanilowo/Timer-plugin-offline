@@ -1,0 +1,32 @@
+<!-- OBS WebSocket Timer Panel HTML Template -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OBS Timer Panel</title>
+    <!-- Link to the external CSS file for styling -->
+    <link rel="stylesheet" href="panel.css" />
+  </head>
+  <body>
+    <!-- Header for the timer panel -->
+    <h2>Set Timer</h2>
+
+    <!-- Input for setting the timer duration in minutes -->
+    <label for="minutes">Time (minutes)</label>
+    <input type="number" id="minutes" placeholder="Enter minutes" />
+
+    <!-- Input for setting the message to display -->
+    <label for="message">Message to display</label>
+    <input type="text" id="message" placeholder="Enter message to show" />
+
+    <!-- Buttons for controlling the timer -->
+    <button id="startBtn">Start</button>
+    <button id="pauseBtn">Pause</button>
+    <button id="resumeBtn">Resume</button>
+    <button id="resetBtn">Reset</button>
+
+    <!-- Link to the external JavaScript file for functionality -->
+    <script src="panel.js"></script>
+  </body>
+</html>
