@@ -1,4 +1,4 @@
-# OBS Timer Plugin (Text-Only Display)
+# Timer Plugin (Text-Only Display)
 
 This is a simple, bold countdown timer plugin designed for **OBS Studio**. It consists of two parts:
 
