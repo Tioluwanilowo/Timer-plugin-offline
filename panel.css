@@ -54,3 +54,19 @@ button.active {
   box-shadow: 0 0 10px white;
   opacity: 1;
 }
+
+.credits {
+  margin-top: 30px;
+  font-size: 14px;
+  text-align: center;
+  color: #aaa;
+}
+
+.credits a {
+  color: #4da6ff;
+  text-decoration: none;
+}
+
+.credits a:hover {
+  text-decoration: underline;
+}
