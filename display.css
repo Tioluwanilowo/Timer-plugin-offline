@@ -1,34 +1,53 @@
 body {
   margin: 0;
-  padding: 0%;
   background: black;
   color: white;
   font-family: sans-serif;
-  width: 100vw;
   height: 100vh;
-  box-sizing: border-box;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.display-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  gap: 2vh;
 }
 
 .time-text {
-  font-size: min(80vw, 400px);
+  font-size: clamp(20.833vw, 10vw, 41.667vw);
   font-weight: bold;
   text-align: center;
+  transition: all 0.5s ease-in-out;
+  word-break: break-word;
+  max-width: 100vw;
 }
 
 .end-message {
-  font-size: min(25vw, 100px);
+  font-size: clamp(2.083vw, 6vw, 6.25vw);
   font-weight: bold;
-  /* margin-top: 2vh; */
-  color: red;
+  color: inherit;
   text-align: center;
-  word-wrap: break-word;
-  /* max-width: 90vw; */
-  display: none;
+  max-width: 90vw;
+  text-transform: uppercase;
   animation: blink 5s infinite;
+  transition: all 0.5s ease-in-out;
+  display: none;
+  opacity: 0;
+}
+
+.rearranged .time-text {
+  order: 2;
+  font-size: min(12vw, 80px);
+}
+
+.rearranged .end-message {
+  display: block;
+  order: 1;
 }
 
 @keyframes blink {

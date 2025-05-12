@@ -1,49 +1,45 @@
 body {
   margin: 0;
-  background: black;
-  color: white;
-  font-family: sans-serif;
   padding: 20px;
+  font-family: sans-serif;
+  font-size: 16px;
+  background-color: #111;
+  color: white;
   box-sizing: border-box;
-  height: 100vh;
-  overflow-y: auto;
-}
-
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
 }
 
 label {
   display: block;
-  margin-top: 20px;
+  margin-top: 15px;
   margin-bottom: 5px;
-  font-size: 14px;
   color: #aaa;
 }
 
-input {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  background-color: #222;
-  color: white;
-  border: 1px solid #555;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
+input,
+select,
 button {
   width: 100%;
   padding: 10px;
-  margin-top: 10px;
   font-size: 16px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+input,
+select {
+  background-color: #222;
+  color: white;
+  border: 1px solid #555;
+}
+
+button {
   background-color: #444;
   color: white;
   border: none;
-  border-radius: 4px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  opacity: 0.9;
+  transition: all 0.2s ease-in-out;
 }
 
 button:hover {
@@ -55,8 +51,59 @@ button.active {
   opacity: 1;
 }
 
+/* Tabs */
+.tab-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tab-btn.active {
+  background-color: #555;
+  font-weight: bold;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Light Theme Support */
+.theme-light {
+  background-color: #f5f5f5;
+  color: #111;
+}
+
+.theme-light input,
+.theme-light select,
+.theme-light button {
+  background-color: #fff;
+  color: #111;
+  border: 1px solid #ccc;
+}
+
+.theme-light .tab-btn.active {
+  background-color: #ddd;
+  color: #000;
+}
+
+/* Credits */
 .credits {
-  margin-top: 30px;
+  margin-top: 20px;
   font-size: 14px;
   text-align: center;
   color: #aaa;
@@ -69,4 +116,56 @@ button.active {
 
 .credits a:hover {
   text-decoration: underline;
+}
+
+.presets {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.preset-btn {
+  flex: 1;
+  padding: 8px 10px;
+  background-color: #222;
+  color: white;
+  border: 1px solid #555;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.preset-btn:hover {
+  background-color: #555;
+}
+
+.color-pair-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.color-box {
+  flex: 1;
+}
+
+.color-box label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #aaa;
+}
+
+.color-box input[type="color"] {
+  width: 100%;
+  max-width: 60px;
+  height: 36px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
 }

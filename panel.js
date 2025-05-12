@@ -1,9 +1,6 @@
-// Wait for the DOM to fully load before executing the script
 window.addEventListener("DOMContentLoaded", () => {
-  // Create a BroadcastChannel for communication with other parts of the app
   const channel = new BroadcastChannel("obs-timer");
 
-  // Get references to the input fields and buttons in the HTML
   const minutesInput = document.getElementById("minutes");
   const messageInput = document.getElementById("message");
 
@@ -12,28 +9,99 @@ window.addEventListener("DOMContentLoaded", () => {
   const resumeBtn = document.getElementById("resumeBtn");
   const resetBtn = document.getElementById("resetBtn");
 
-  // Function to send a message through the BroadcastChannel
+  // === TIMER CONTROLS ===
   function send(action) {
-    // Get the timer duration in seconds and the message to display
-    const time = parseInt(minutesInput.value) || 0; // Default to 0 if input is invalid
+    const time = parseInt(minutesInput.value) || 0;
     const message = messageInput.value;
-
-    // Send the action, time, and message as a message
     channel.postMessage({ action, time: time * 60, message });
 
-    // Reset the "active" class on all buttons
     [startBtn, pauseBtn, resumeBtn, resetBtn].forEach((btn) =>
       btn.classList.remove("active")
     );
-
-    // Add the "active" class to the button corresponding to the current action
     const activeBtn = document.getElementById(`${action}Btn`);
     if (activeBtn) activeBtn.classList.add("active");
   }
 
-  // Attach click event listeners to the buttons
-  startBtn.onclick = () => send("start"); // Start the timer
-  pauseBtn.onclick = () => send("pause"); // Pause the timer
-  resumeBtn.onclick = () => send("resume"); // Resume the timer
-  resetBtn.onclick = () => send("reset"); // Reset the timer
+  startBtn.onclick = () => send("start");
+  pauseBtn.onclick = () => send("pause");
+  resumeBtn.onclick = () => send("resume");
+  resetBtn.onclick = () => send("reset");
+
+  // === TAB SWITCHING ===
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      document
+        .querySelectorAll(".tab-btn")
+        .forEach((b) => b.classList.remove("active"));
+      document
+        .querySelectorAll(".tab-content")
+        .forEach((tab) => tab.classList.remove("active"));
+      btn.classList.add("active");
+      document.getElementById(btn.dataset.tab).classList.add("active");
+    });
+  });
+
+  // === PRESET BUTTONS ===
+  document.querySelectorAll(".preset-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const presetMinutes = parseInt(btn.getAttribute("data-min"));
+      minutesInput.value = presetMinutes;
+    });
+  });
+
+  // === STYLE SETTINGS ===
+  const themeSelect = document.getElementById("theme");
+  const fontColorTimer = document.getElementById("fontColorTimer");
+  const fontColorMessage = document.getElementById("fontColorMessage");
+  const fontFamilySelect = document.getElementById("fontFamily");
+
+  function applyPanelTheme(theme) {
+    document.body.classList.remove("theme-dark", "theme-light");
+    document.body.classList.add(`theme-${theme}`);
+  }
+
+  function sendStyleToDisplay() {
+    const theme = themeSelect.value;
+    const colorTimer = fontColorTimer.value;
+    const colorMessage = fontColorMessage.value;
+    const fontFamily = fontFamilySelect.value;
+
+    // Save values
+    localStorage.setItem("theme", theme);
+    localStorage.setItem("fontColorTimer", colorTimer);
+    localStorage.setItem("fontColorMessage", colorMessage);
+    localStorage.setItem("fontFamily", fontFamily);
+
+    // Apply theme to panel only
+    applyPanelTheme(theme);
+
+    // Send style data to display only
+    channel.postMessage({
+      action: "style",
+      fontColorTimer: colorTimer,
+      fontColorMessage: colorMessage,
+      fontFamily: fontFamily,
+    });
+  }
+
+  // === Apply saved settings on load ===
+  const savedTheme = localStorage.getItem("theme") || "dark";
+  const savedColorTimer = localStorage.getItem("fontColorTimer") || "#ffffff";
+  const savedColorMessage =
+    localStorage.getItem("fontColorMessage") || "#ff0000";
+  const savedFontFamily = localStorage.getItem("fontFamily") || "sans-serif";
+
+  themeSelect.value = savedTheme;
+  fontColorTimer.value = savedColorTimer;
+  fontColorMessage.value = savedColorMessage;
+  fontFamilySelect.value = savedFontFamily;
+
+  applyPanelTheme(savedTheme);
+  sendStyleToDisplay();
+
+  // === Watch for changes ===
+  themeSelect.onchange = sendStyleToDisplay;
+  fontColorTimer.onchange = sendStyleToDisplay;
+  fontColorMessage.onchange = sendStyleToDisplay;
+  fontFamilySelect.onchange = sendStyleToDisplay;
 });

@@ -1,88 +1,93 @@
-// Creates a BroadcastChannel for communication between different browser contexts
 const channel = new BroadcastChannel("obs-timer");
 
-// References to the DOM elements for displaying the timer and messages
 const timeText = document.getElementById("time");
 const message = document.getElementById("message");
+const container = document.querySelector(".display-container");
 
-// Variables to manage the timer state
-let timer, // Holds the interval ID for the countdown
-  remaining = 0, // Remaining time in seconds
-  total = 0, // Total countdown time in seconds
-  paused = false; // Tracks whether the timer is paused
+let timer,
+  remaining = 0,
+  total = 0,
+  paused = false;
 
-/**
- * Formats a given time in seconds into MM:SS format.
- * @param {number} seconds - The time in seconds to format.
- * @returns {string} - The formatted time string.
- */
+// Apply style changes from panel
+function applyDisplayStyle(data) {
+  if (data.fontColorTimer) {
+    timeText.style.color = data.fontColorTimer;
+  }
+  if (data.fontColorMessage) {
+    message.style.color = data.fontColorMessage;
+  }
+  if (data.fontFamily) {
+    timeText.style.fontFamily = data.fontFamily;
+    message.style.fontFamily = data.fontFamily;
+  }
+}
+
 function formatTime(seconds) {
-  const mins = Math.floor(seconds / 60); // Calculate minutes
-  const secs = seconds % 60; // Calculate remaining seconds
+  const mins = Math.floor(seconds / 60);
+  const secs = seconds % 60;
   return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
 }
 
-/**
- * Starts or resumes the countdown timer.
- * @param {number} time - The total time for the countdown in seconds.
- * @param {string} finalMessage - The message to display when the timer ends.
- * @param {boolean} [resume=false] - Whether to resume from the remaining time.
- */
 function startCountdown(time, finalMessage, resume = false) {
-  // Clear any existing timer
   clearInterval(timer);
 
   if (!resume) {
-    // Initialize total and remaining time if not resuming
     total = remaining = time;
-    message.style.display = "none"; // Hide the end message
+    message.style.display = "none";
+    message.style.opacity = 0;
+    container.classList.remove("rearranged");
   }
 
-  // Start the countdown interval
   timer = setInterval(() => {
     if (remaining <= 0) {
-      // Stop the timer when it reaches zero
       clearInterval(timer);
-      timeText.textContent = "00:00"; // Display 00:00
-      message.textContent = finalMessage; // Show the final message
-      message.style.display = "block"; // Make the message visible
+      timeText.textContent = "00:00";
+      message.textContent = finalMessage;
+      message.style.display = "block";
+      message.style.opacity = 1;
+      container.classList.add("rearranged");
       return;
     }
 
-    // Update the timer display and decrement the remaining time
     timeText.textContent = formatTime(remaining);
     remaining--;
-  }, 1000); // Update every second
+  }, 1000);
 }
 
-// Handles incoming messages from the BroadcastChannel
 channel.onmessage = (event) => {
-  const { action, time, message: msg } = event.data; // Destructure the event data
+  const data = event.data;
+
+  if (data.action === "style") {
+    applyDisplayStyle(data);
+    return;
+  }
+
+  const { action, time, message: msg } = data;
 
   switch (action) {
     case "start":
-      // Start the timer with the specified time and message
       paused = false;
       startCountdown(time, msg);
       break;
 
     case "pause":
-      // Pause the timer by clearing the interval
       paused = true;
       clearInterval(timer);
       break;
 
     case "resume":
-      // Resume the timer if it was paused
       if (paused) startCountdown(remaining, msg, true);
       break;
 
     case "reset":
-      // Reset the timer to its initial state
       clearInterval(timer);
       remaining = 0;
-      timeText.textContent = "00:00"; // Reset the timer display
-      message.style.display = "none"; // Hide the end message
+      timeText.textContent = "00:00";
+      message.textContent = "";
+      message.style.display = "none";
+      message.style.opacity = 0;
+      container.classList.remove("rearranged");
       paused = false;
       break;
   }

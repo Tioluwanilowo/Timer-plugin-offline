@@ -2,7 +2,7 @@
 
 This is a simple, bold countdown timer plugin designed for **OBS Studio**. It consists of two parts:
 
-- **Control Panel** – lets you set the time, start/pause/reset the countdown, and customize the message.
+- **Control Panel** – lets you set the time, start/pause/reset the countdown, and customize the message and styling.
 - **Display Page** – shows a large, fullscreen countdown timer and a blinking message once time is up.
 
 ---
@@ -31,12 +31,23 @@ This is a simple, bold countdown timer plugin designed for **OBS Studio**. It co
 
 ---
 
+## 🎨 Style Customization
+
+From the **Style** tab in the Control Panel, you can:
+
+- Switch between **Light** and **Dark** themes (panel only)
+- Choose separate **font colors** for the **timer** and **end message** using color pickers
+- Select custom **font styles** (Sans, Serif, Monospace, Cursive)
+- All style changes affect the **display**, except theme which only affects the panel
+
+---
+
 ## 📝 Example Workflow
 
 1. Enter countdown time (in minutes)
 2. Enter your custom message (e.g., `Your time is up. Please leave the stage.`)
 3. Click **Start**
-4. When time is up, the message will flash in bold red text
+4. When time is up, the message will flash in bold text, and the timer will move down
 
 ---
 
