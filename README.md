@@ -51,6 +51,32 @@ From the **Style** tab in the Control Panel, you can:
 
 ---
 
+---
+
+## 🔖 Version History
+
+### [v1.2 – UI Enhancements](https://github.com/Tioluwanilowo/Timer-plugin-offline/tree/v1.2)
+
+- Added **Style** tab to Control Panel
+- Theme toggle (Light/Dark) for control panel
+- Font color pickers for timer and end message (independent)
+- Custom font family selector
+- Animated message styling improvements
+
+### [v1.1 – Display Update](https://github.com/Tioluwanilowo/Timer-plugin-offline/tree/v1.1)
+
+- Integrated end message display
+- Basic styling and layout improvements
+- Setup for communication via `BroadcastChannel`
+
+### [v1.0 – Initial Release](https://github.com/Tioluwanilowo/Timer-plugin-offline/tree/v1.0)
+
+- Basic countdown timer
+- End message display logic
+- Core HTML/CSS structure for control and display
+
+---
+
 ## 🙌 Credits
 
 Made with ❤️ by [Tioluwani Lowo](https://tioluwanilowo.com/)

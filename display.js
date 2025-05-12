@@ -92,3 +92,16 @@ channel.onmessage = (event) => {
       break;
   }
 };
+
+// === Apply saved styles on load (in case panel is not open)
+const savedFontColorTimer = localStorage.getItem("fontColorTimer");
+const savedFontColorMessage = localStorage.getItem("fontColorMessage");
+const savedFontFamily = localStorage.getItem("fontFamily");
+
+if (savedFontColorTimer || savedFontColorMessage || savedFontFamily) {
+  applyDisplayStyle({
+    fontColorTimer: savedFontColorTimer,
+    fontColorMessage: savedFontColorMessage,
+    fontFamily: savedFontFamily,
+  });
+}
