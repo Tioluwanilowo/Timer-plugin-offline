@@ -9,9 +9,12 @@
     <link rel="stylesheet" href="panel.css" />
   </head>
   <body>
+    <!-- Tab Navigation -->
     <div class="tab-bar">
       <button class="tab-btn active" data-tab="timerTab">Timer Settings</button>
       <button class="tab-btn" data-tab="styleTab">Style</button>
+      <button class="tab-btn" data-tab="sessionsTab">Sessions</button>
+      <!-- NEW -->
     </div>
 
     <!-- Timer Settings Tab -->
@@ -33,6 +36,25 @@
       <label for="message">Message to display</label>
       <input type="text" id="message" placeholder="Enter message to show" />
 
+      <label for="presetSelect">Select Preset Style</label>
+      <div class="preset-apply">
+        <select id="presetSelect">
+          <option value="">-- No Preset Saved --</option>
+        </select>
+        <div class="preset-actions">
+          <button id="applyPresetBtn" type="button" class="small-btn">
+            Apply
+          </button>
+          <button
+            id="deletePresetBtn"
+            type="button"
+            class="small-btn danger-btn"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+
       <button id="startBtn">Start</button>
       <button id="pauseBtn">Pause</button>
       <button id="resumeBtn">Resume</button>
@@ -40,16 +62,17 @@
     </div>
 
     <!-- Style Settings Tab -->
-    <!-- Style Settings Tab -->
     <div id="styleTab" class="tab-content">
       <h2>Style Options</h2>
 
+      <!-- Theme (panel only) -->
       <label for="theme">Theme</label>
       <select id="theme">
         <option value="dark">Dark</option>
         <option value="light">Light</option>
       </select>
 
+      <!-- Color pickers in one row -->
       <div class="color-pair-row">
         <div class="color-box">
           <label for="fontColorTimer">Timer Font Color</label>
@@ -61,6 +84,7 @@
         </div>
       </div>
 
+      <!-- Font family -->
       <label for="fontFamily">Font Style</label>
       <select id="fontFamily">
         <option value="sans-serif">Sans</option>
@@ -68,6 +92,108 @@
         <option value="monospace">Monospace</option>
         <option value="cursive">Cursive</option>
       </select>
+
+      <!-- NEW: font sizes (px) -->
+      <div class="pair-row">
+        <div class="pair-box">
+          <label for="fontSizeTimer">Timer Font Size (px)</label>
+          <input
+            type="number"
+            id="fontSizeTimer"
+            min="20"
+            max="400"
+            step="1"
+            placeholder="e.g. 180"
+          />
+        </div>
+        <div class="pair-box">
+          <label for="fontSizeMessage">End Message Font Size (px)</label>
+          <input
+            type="number"
+            id="fontSizeMessage"
+            min="20"
+            max="400"
+            step="1"
+            placeholder="e.g. 100"
+          />
+        </div>
+      </div>
+
+      <!-- NEW: alignments -->
+      <label for="containerPos">Container Position</label>
+      <select id="containerPos">
+        <option value="top-left">Top Left</option>
+        <option value="top-center">Center Left</option>
+        <option value="top-right">Bottom Left</option>
+        <option value="center-left">Top Center</option>
+        <option value="center-center" selected>Center Center</option>
+        <option value="center-right">Bottom Center</option>
+        <option value="bottom-left">Top Right</option>
+        <option value="bottom-center">Right Center</option>
+        <option value="bottom-right">Bottom Right</option>
+      </select>
+
+      <hr />
+      <h3>Style Presets</h3>
+
+      <div class="pair-row">
+        <div class="pair-box">
+          <label for="presetName">Preset Name</label>
+          <input type="text" id="presetName" placeholder="e.g. Stage Bold" />
+        </div>
+        <div
+          class="pair-box"
+          style="display: flex; gap: 10px; align-items: flex-end"
+        >
+          <button id="savePresetBtn" type="button">Save Preset</button>
+        </div>
+      </div>
+
+      <!-- (Removed the old Saved Presets select+apply block from here) -->
+    </div>
+
+    <!-- Saved Sessions Tab -->
+    <div id="sessionsTab" class="tab-content">
+      <h2>Saved Sessions</h2>
+
+      <div class="pair-row">
+        <div class="pair-box">
+          <label for="sessionName">Session Name</label>
+          <input
+            type="text"
+            id="sessionName"
+            placeholder="e.g. Opening Speech"
+          />
+        </div>
+        <div class="pair-box">
+          <label for="sessionMinutes">Minutes</label>
+          <input
+            type="number"
+            id="sessionMinutes"
+            min="1"
+            step="1"
+            placeholder="e.g. 5"
+          />
+        </div>
+      </div>
+
+      <label for="sessionMessage">End Message</label>
+      <input
+        type="text"
+        id="sessionMessage"
+        placeholder="Message when time is up"
+      />
+
+      <div style="display: flex; gap: 10px; margin-top: 10px">
+        <button id="saveSessionBtn" type="button">Save Session</button>
+        <button id="clearSessionFormBtn" type="button" class="small-btn">
+          Clear Form
+        </button>
+      </div>
+
+      <hr />
+      <h3>My Sessions</h3>
+      <div id="sessionList" class="session-list"></div>
     </div>
 
     <!-- Link to the external JavaScript file for functionality -->
@@ -77,6 +203,17 @@
         >Tioluwani Lowo</a
       >
     </div>
+
+    <footer class="support-footer">
+      <p>If you love what I do, kindly support me 💖</p>
+      <a
+        href="https://www.paypal.com/ncp/payment/VUBFFTTB564AJ"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="donate-btn"
+        >Donate via PayPal</a
+      >
+    </footer>
 
     <script src="panel.js"></script>
   </body>

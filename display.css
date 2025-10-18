@@ -1,30 +1,86 @@
 body {
   margin: 0;
+  padding: 0;
   background: black;
   color: white;
   font-family: sans-serif;
   height: 100vh;
   width: 100vw;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
 }
 
 .display-container {
+  position: relative;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  /* default: centered; class below will override */
+  justify-content: center;
+  align-items: center;
+  padding: 0 5vw; /* a little side margin so left/right isn’t glued to the edge */
+}
+.stack {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 2vh;
+  gap: 0.5rem;
 }
 
-.time-text {
-  font-size: clamp(20.833vw, 10vw, 41.667vw);
-  font-weight: bold;
-  text-align: center;
-  transition: all 0.5s ease-in-out;
-  word-break: break-word;
-  max-width: 100vw;
+/* ---- 9 position classes (container alignment) ---- */
+.pos-top-left {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.pos-top-center {
+  justify-content: flex-start;
+  align-items: center;
+}
+.pos-top-right {
+  justify-content: flex-start;
+  align-items: flex-end;
+}
+
+.pos-center-left {
+  justify-content: center;
+  align-items: flex-start;
+}
+.pos-center-center {
+  justify-content: center;
+  align-items: center;
+}
+.pos-center-right {
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.pos-bottom-left {
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+.pos-bottom-center {
+  justify-content: flex-end;
+  align-items: center;
+}
+.pos-bottom-right {
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+
+/* When time ends: put them near the bottom, close together */
+.rearranged {
+  justify-content: flex-end; /* push the whole stack down */
+  padding-bottom: 6vh; /* how far from the bottom */
+  gap: 0.4rem; /* tiny gap between message and timer */
+}
+
+/* Let JS control text-align (and sizes/colors). Make them full-width lines */
+.time-text,
+.end-message {
+  margin: 0;
+  text-align: center; /* keep text centered inside group */
+  max-width: 90vw;
 }
 
 .end-message {
@@ -40,16 +96,6 @@ body {
   opacity: 0;
 }
 
-.rearranged .time-text {
-  order: 2;
-  font-size: min(12vw, 80px);
-}
-
-.rearranged .end-message {
-  display: block;
-  order: 1;
-}
-
 @keyframes blink {
   0%,
   50%,
@@ -60,4 +106,11 @@ body {
   75% {
     opacity: 0;
   }
+}
+
+.time-text,
+.end-message {
+  /* let JS control text color, font-family, font-size, and text-align */
+  margin: 0;
+  max-width: 90vw;
 }
