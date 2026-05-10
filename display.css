@@ -9,7 +9,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  /* animation: background 5s infinite; */
 }
+
+/* @keyframes background {
+  0%,
+  50%,
+  100% {
+    background: red;
+  }
+  25%,
+  75% {
+    background: red;
+  }
+} */
 
 .display-container {
   position: relative;
@@ -87,11 +100,15 @@ body {
   font-size: clamp(2.083vw, 6vw, 6.25vw);
   font-weight: bold;
   color: inherit;
-  background: red;
+  /* background: red; */
   text-align: center;
-  width: 100vw;
+
+  /* max-width: 90vw; */
+  /* Below was in use  */
+  /* width: 100vw; */
+  /* margin-top: 10rem; */
+
   /* height: 60vh; */
-  margin-top: 10rem;
   text-transform: uppercase;
   animation: blink 5s infinite;
   transition: all 0.5s ease-in-out;

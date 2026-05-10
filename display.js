@@ -4,6 +4,7 @@ const timeText = document.getElementById("time");
 const message = document.getElementById("message");
 const container = document.getElementById("displayContainer"); // <-- container for 9-pos
 const stack = document.getElementById("stack");
+const body = document.querySelector("body");
 
 let timer,
   remaining = 0,
@@ -63,6 +64,10 @@ function startCountdown(time, finalMessage, resume = false) {
       clearInterval(timer);
       timeText.textContent = "00:00";
 
+      // hide timer when less than 0 or equal to 0 "00:00" and change the background
+      timeText.style.display = "none";
+      body.style.background = "red";
+
       // show the end message; it's already the top element in the stack
       message.textContent = finalMessage;
       message.style.display = "block";
@@ -113,6 +118,7 @@ channel.onmessage = (event) => {
       timeText.textContent = "00:00";
       message.textContent = "";
       message.style.display = "none";
+      body.style.background = "black";
       paused = false;
       break;
   }
