@@ -87,8 +87,11 @@ body {
   font-size: clamp(2.083vw, 6vw, 6.25vw);
   font-weight: bold;
   color: inherit;
+  background: red;
   text-align: center;
-  max-width: 90vw;
+  width: 100vw;
+  /* height: 60vh; */
+  margin-top: 10rem;
   text-transform: uppercase;
   animation: blink 5s infinite;
   transition: all 0.5s ease-in-out;
